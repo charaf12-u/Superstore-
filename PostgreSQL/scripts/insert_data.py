@@ -4,7 +4,9 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from scripts.create_tables import metadata
 
 def insert_data(engine, table_name, csv_file):
+    
     try:
+        
         table = metadata.tables.get(table_name)
         if table is None:
             print(f"[ERREUR] Table '{table_name}' non trouvée !")

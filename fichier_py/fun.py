@@ -1,4 +1,5 @@
 import pandas as pd
+from docx.shared import *
 
 # function de modifier types et netwayes chaine de caractaire
 # --> type date
@@ -26,3 +27,14 @@ def StringType(df , columns) :
         if col in df.columns:
             df[col] = df[col].astype(str).str.lower().str.strip()
     return df
+
+# add section in fichier word
+def add_section(doc , title, df):
+        doc.add_heading(title, 3)
+        p = doc.add_paragraph()
+        run = p.add_run(df.head().to_string())
+        run.font.name = "Courier New"
+        run.font.size = Pt(9)
+        info = doc.add_paragraph(f"Nombre de lignes = {len(df)}")
+        info.runs[0].italic = True
+        doc.add_paragraph("")
