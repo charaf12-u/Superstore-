@@ -59,7 +59,7 @@ def run_tests(engine):
             try:
                 conn.execute(text("""
                     INSERT INTO etat (state_name, country, region_id)
-                    VALUES ('fake_state','usa',9999)
+                    VALUES ('fake_state','usa',99999999)
                 """))
             except Exception:
                 print("FK region -> etat works correctly")

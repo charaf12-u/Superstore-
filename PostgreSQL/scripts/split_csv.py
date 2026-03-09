@@ -15,12 +15,11 @@ def split_csv(path_csv):
         df_region.to_csv('PostgreSQL/fichier_split/region.csv', index=False)
 
         # --> ETAT
-        df_etat = df[['state', 'country', 'region']].drop_duplicates(subset=['state'])
+        df_etat = df[['state', 'country', 'region']].drop_duplicates(subset=['state']).reset_index(drop=True)
         df_etat = df_etat.merge(df_region, left_on='region', right_on='region_name', how='left')
         df_etat = df_etat[['state', 'country', 'region_id']].rename(
             columns={'state': 'state_name'}
         )
-        df_etat = df_etat.reset_index(drop=True)
         df_etat['state_id'] = df_etat.index + 1
         df_etat.to_csv('PostgreSQL/fichier_split/etat.csv', index=False)
 
@@ -62,14 +61,9 @@ def split_csv(path_csv):
         df_sous_categorie = df[['sub-category', 'category']] \
             .drop_duplicates(subset=['sub-category'])
         df_sous_categorie = df_sous_categorie.merge(
-            df_categorie,
-            left_on='category',
-            right_on='category_name',
-            how='left'
-        )
+            df_categorie, left_on='category', right_on='category_name', how='left' )
         df_sous_categorie = df_sous_categorie[['sub-category', 'category_id']] \
-            .rename(columns={'sub-category': 'sub_category_name'}) \
-            .reset_index(drop=True)
+            .rename(columns={'sub-category': 'sub_category_name'}).reset_index(drop=True)
         df_sous_categorie['sub_category_id'] = df_sous_categorie.index + 1
         df_sous_categorie.to_csv('PostgreSQL/fichier_split/sous_categorie.csv', index=False)
 
@@ -78,51 +72,28 @@ def split_csv(path_csv):
             .drop_duplicates(subset=['product id'])
         df_produit = df_produit.merge(
             df_sous_categorie[['sub_category_name', 'sub_category_id']],
-            left_on='sub-category',
-            right_on='sub_category_name',
-            how='left'
-        )
+            left_on='sub-category', right_on='sub_category_name', how='left' )
         df_produit = df_produit[['product id', 'product name', 'sub_category_id']] \
-            .rename(columns={
-                'product id': 'product_id',
-                'product name': 'product_name'
-            })
+            .rename(columns={'product id': 'product_id','product name': 'product_name'})
         df_produit.to_csv('PostgreSQL/fichier_split/produit.csv', index=False)
 
         # --> COMMANDE
-        df_commande = df[['order id', 'ship date', 'ship mode',
-                          'customer id', 'postal code', 'order date',
+        df_commande = df[['order id', 'ship date', 'ship mode','customer id', 'postal code', 'order date',
                           'délais livraison']].drop_duplicates(subset=['order id'])
         df_commande = df_commande.merge(
-            df_date_temps[['order_date', 'date_id']],
-            left_on='order date',
-            right_on='order_date',
-            how='left'
-        )
+            df_date_temps[['order_date', 'date_id']],left_on='order date', right_on='order_date', how='left')
         df_commande = df_commande.rename(columns={
-            'order id': 'order_id',
-            'ship date': 'ship_date',
-            'ship mode': 'ship_mode',
-            'customer id': 'customer_id',
-            'postal code': 'postal_code',
-            'délais livraison': 'delais_livraison'
-        })[['order_id', 'ship_date', 'ship_mode',
-            'customer_id', 'postal_code',
-            'date_id', 'delais_livraison']]
+            'order id': 'order_id', 'ship date': 'ship_date','ship mode': 'ship_mode', 'customer id': 'customer_id',
+            'postal code': 'postal_code','délais livraison': 'delais_livraison'
+        })[['order_id', 'ship_date', 'ship_mode', 'customer_id', 'postal_code', 'date_id', 'delais_livraison']]
         df_commande['delais_livraison'] = df_commande['delais_livraison'] \
             .astype(str).str.extract(r'(\d+)').astype(int)
         df_commande.to_csv('PostgreSQL/fichier_split/commande.csv', index=False)
 
         # --> VENTES
-        df_ventes = df[['row id', 'sales', 'quantity',
-                        'marge_relative', 'taux_profit_estime',
-                        'ratio_qte_sales', 'order id', 'product id']] \
-            .drop_duplicates(subset=['row id']) \
-            .rename(columns={
-                'row id': 'row_id',
-                'order id': 'order_id',
-                'product id': 'product_id'
-            })
+        df_ventes = df[['row id', 'sales', 'quantity', 'marge_relative', 'taux_profit_estime',
+                        'ratio_qte_sales', 'order id', 'product id']].drop_duplicates(subset=['row id']) \
+            .rename(columns={'row id': 'row_id', 'order id': 'order_id', 'product id': 'product_id'})
         df_ventes.to_csv('PostgreSQL/fichier_split/ventes_split.csv', index=False)
 
 
