@@ -23,6 +23,11 @@ def preparation(engine):
         """
 
         df = pd.read_sql(query , engine )
+        # --> netwayege des columns
+        df.columns = [col.strip().lower().replace(' ', '_') for col in df.columns]
+
+        # --> colonnes dates
+        df['order_date'] = pd.to_datetime(df['order_date'], errors='coerce')
 
         return df
 
