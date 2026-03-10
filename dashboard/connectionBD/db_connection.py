@@ -1,5 +1,5 @@
 from sqlalchemy import *
-from config import *
+from connectionBD.config import *
 
 
 def get_engine():
@@ -7,8 +7,6 @@ def get_engine():
         engine = create_engine(
             f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
         )
-
-        print("Connexion PostgreSQL réussie")
         return engine
 
     except Exception as e:
