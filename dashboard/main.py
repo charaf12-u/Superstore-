@@ -2,6 +2,7 @@ import pandas as pd
 from connectionBD.db_connection import *
 from ReadTable.ReadTable import *
 from extarctionDonnes.extractionDonnes import *
+from extarctionDonnes.preparationDonnes import *
 
 engine = get_engine()
 
@@ -12,3 +13,7 @@ if engine:
 readTable(engine)
 run_analytics(engine)
 
+df = preparation(engine)
+print(df)
+
+print(df["order_date"].dtype)
