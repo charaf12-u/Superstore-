@@ -8,7 +8,4 @@ ENV/
 .pytest_cache/
 .DS_Store
 .log
-# Optionnel: ignorer les résultats générés si tu veux que l'utilisateur les génère lui-même
-docs/reports/*.docx
-data/raw/
-data/processed/
+
