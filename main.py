@@ -1,7 +1,7 @@
-from fichier_py.read_clean_data import *
-from fichier_py.fun import *
-from fichier_py.graphes import *
-from fichier_py.rapport import *
+from src.cleaning.read_clean_data import *
+from src.cleaning.fun import *
+from src.visual.graphes import *
+from src.reporting.rapport import *
 
 
 read_clean()

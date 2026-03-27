@@ -1,5 +1,0 @@
-USERNAME = "postgres"
-PASSWORD = "charaf"
-HOST = "localhost"
-PORT = "5432"
-DATABASE = "superstore_db"

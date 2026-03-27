@@ -9,4 +9,6 @@ ENV/
 .DS_Store
 .log
 # Optionnel: ignorer les résultats générés si tu veux que l'utilisateur les génère lui-même
-# fichier_livrable/
+docs/reports/*.docx
+data/raw/
+data/processed/
