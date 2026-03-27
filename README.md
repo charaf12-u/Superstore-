@@ -1,79 +1,80 @@
-# 📊 Superstore Data Lifecycle: ETL to PostgreSQL & Reporting
+# 📊 Superstore Sales: ETL, Analysis & PostgreSQL Integration
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![Database](https://img.shields.io/badge/database-PostgreSQL-336791.svg)](https://www.postgresql.org/)
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![Status](https://img.shields.io/badge/status-ready-success.svg)]()
 
-## 📝 Project Overview
-This project provides an end-to-end automated solution for the **Superstore sales data lifecycle**. It covers the entire pipeline: from raw data ingestion and cleaning (ETL) to relational database integration (PostgreSQL) and the generation of professional business intelligence reports.
-
----
-
-## 🚀 Key Features
-
-*   **Automated Data Cleaning (ETL):** Intelligent handling of duplicates, missing values, and data type corrections.
-*   **Advanced Analytics:** Calculation of business metrics such as profit margins, shipping delays, and multi-dimensional sales trends.
-*   **Outlier Detection:** Statistical anomaly detection using the Interquartile Range (IQR) method.
-*   **Relational Database Mapping:** A robust PostgreSQL schema designed to normalize flat CSV data into a structured relational model.
-*   **Dynamic Data Splitting:** Intelligent scripts to prepare and split cleaned data for bulk database insertion.
-*   **Reporting Engine:** Automatic generation of high-quality Word (`.docx`) reports containing data-driven insights and visualizations.
-*   **Comprehensive Testing:** Integrated test suite for database connectivity, data integrity, and analytical accuracy.
+Ce projet fournit une solution **Enterprise-Ready** pour automatiser l'intégralité du cycle de vie des données de ventes du dataset **Superstore**. Il transforme un fichier CSV plat en une base de données relationnelle normalisée (3NF) et génère des rapports d'analyse décisionnelle professionnels.
 
 ---
 
-## 📁 Project Architecture
+## 📁 Architecture Modulaire
+
+Le projet est organisé selon les meilleures pratiques de développement Python pour garantir la maintenabilité et la clarté.
 
 ```text
 📦 Superstore-Project
-├── 🚀 main.py                     # Entry point for the ETL & Reporting pipeline
-├── 📂 fichier_py/                 # Core Python Logic (ETL & Analysis)
-│   ├── 🛠️ read_clean_data.py      # Main processing & cleaning logic
-│   ├── 🔧 fun.py                  # Utility functions (typing & formatting)
-│   ├── 📈 graphes.py              # Data visualization engine (Matplotlib)
-│   └── 📄 rapport.py              # Word report generation logic
-├── 📁 fichier_data/               # Raw Data Source (store.csv)
-├── 📂 fichier_livrable/           # Final Output (Cleaned CSV & Business Report)
-├── 📂 PostgreSQL/                 # Database Integration Layer
-│   ├── 🚀 main.py                 # Main execution script for Database operations
-│   ├── 📜 scripts/                # Database Management Scripts
-│   │   ├── ⚙️ config.py           # Database connection parameters
-│   │   ├── 🏗️ create_tables.py    # SQL Schema definition & table creation
-│   │   ├── ✂️ split_csv.py        # logic to normalize & split data into tables
-│   │   ├── 📥 insert_data.py      # Automated bulk data insertion logic
-│   │   └── 🔍 check_uniqueness.py # Data integrity & uniqueness validation
-│   └── 🧪 tests/                  # Verification Suite
-│       ├── 📊 test_analytics.py   # Analysis & query results verification
-│       └── 📝 test_insertion.py   # Insertion & Join relational testing
-└── 📄 README.md                   # Project Documentation
+├── 🚀 main.py                     # Orchestrateur du pipeline (Nettoyage -> Visualisation -> Rapport)
+├── 📂 src/                        # Code source du projet
+│   ├── 📂 cleaning/               # Moteur d'ETL
+│   │   ├── 🛠️ read_clean_data.py  # Logique principale de nettoyage et transformation
+│   │   └── 🔧 fun.py              # Utilitaires de typage et formatage de données
+│   ├── 📂 visual/                 # Analytique Visuelle
+│   │   └── 📈 graphes.py          # Génération automatisée de graphiques Matplotlib
+│   ├── 📂 reporting/              # Business Intelligence
+│   │   └── 📄 rapport.py          # Moteur de génération de rapports Word (.docx)
+│   └── 📂 database/               # Couche de Persistance
+│       ├── 🚀 db_main.py          # Script d'orchestration de la base de données
+│       ├── 🏗️ create_tables.py    # Définition du schéma SQL avec SQLAlchemy
+│       ├── ✂️ split_csv.py        # Logique de normalisation (Flat CSV -> Relational)
+│       ├── 🔍 check_uniqueness.py # Validation d'intégrité référentielle
+│       ├── 🔗 db_connection.py    # Gestionnaire de connexion SQLAlchemy
+│       └── ⚙️ config.py           # Chargement sécurisé de la configuration (.env)
+├── 📂 data/                       # Stockage des données
+│   ├── 📥 raw/                    # Données sources non transformées
+│   ├── 📤 processed/              # Résultats du nettoyage et graphiques
+│   └── 🛠️ sql_splits/             # CSV normalisés prêts pour l'insertion SQL
+├── 📂 docs/                       # Patrimoine documentaire
+│   ├── 📊 presentations/          # Supports de présentation PPTX
+│   ├── 🖼️ img/                     # Diagrammes Merise (MCD, MLD, 3NF)
+│   └── 📄 reports/                # Archives des rapports BI générés
+├── 🧪 tests/                      # Suite de tests (Intégrité & Analytics)
+├── 📄 .env                        # Secrets et configuration locale (Ignoré par Git)
+├── 📄 requirements.txt            # Liste exhaustive des dépendances
+└── 📄 README.md                   # Documentation maîtresse
 ```
 
 ---
 
-## 🛠️ Technical Stack
+## 🏗️ Modélisation de la Donnée (Méthode Merise)
 
-| Component | Technology | Use Case |
-| :--- | :--- | :--- |
-| **Language** | Python 3.x | Core logic and automation |
-| **Data Manipulation** | Pandas / NumPy | ETL, cleaning, and transformation |
-| **Visualization** | Matplotlib / Seaborn | Chart generation for reports |
-| **Reporting** | Python-docx | Professional document generation |
-| **Database** | PostgreSQL | Scalable storage & relational management |
-| **Database Driver** | Psycopg2 / SQLAlchemy | Python-PostgreSQL communication |
-| **Testing** | Unittest / PyTest | Ensuring code and data reliability |
+Le passage d'un format plat à un format relationnel est basé sur une modélisation rigoureuse assurant l'intégrité des données.
+
+### 🧩 Modèle Conceptuel (MCD)
+*Définition des entités métier et de leurs relations.*
+![MCD](docs/img/mcd.png)
+
+### 📐 Modèle Logique (MLD)
+*Traduction technique vers un système relationnel.*
+![MLD](docs/img/mld.png)
+
+### 💎 Modèle Physique & Normalisation (3NF)
+*Optimisation pour éviter la redondance et assurer la cohérence.*
+![3NF](docs/img/3NF.png)
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️ Déploiement & Configuration
 
-### 1. Installation
-Assurez-vous d'avoir Python 3.8+ installé, puis exécutez :
+### 1. Préparation de l'environnement
+Clonage et installation des dépendances nécessaires :
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Configuration
-Créez un fichier `.env` à la racine du projet (utilisez le modèle fourni) et renseignez vos informations de connexion :
-```text
+### 2. Sécurisation des accès
+Configurez vos identifiants PostgreSQL dans le fichier `.env` à la racine :
+```ini
 DB_USER=votre_utilisateur
 DB_PASSWORD=votre_mot_de_passe
 DB_HOST=localhost
@@ -81,67 +82,38 @@ DB_PORT=5432
 DB_NAME=superstore_db
 ```
 
-### 3. Exécution du Pipeline
-t Setup
-Clone the repository and install the dependencies:
+---
+
+## 🚀 Workflows d'Exécution
+
+### 🔄 Étape 1 : Pipeline ETL & BI
+Traite les données brutes, calcule les KPIs (marges, délais, croissances) et génère le rapport Word final.
 ```bash
-# Install core dependencies
-pip install pandas matplotlib python-docx psycopg2 sqlalchemy
-```
-
-### 3. Database Configuration
-Edit `PostgreSQL/scripts/config.py` with your database credentials:
-```python
-DB_CONFIG = {
-    "host": "localhost",
-    "database": "superstore_db",
-    "user": "your_user",
-    "password": "your_password"
-}
-```
-
----
-
-## 💻 Workflow Execution
-
-### Phase 1: Data Processing & Reporting
-Place your raw `store.csv` in `fichier_data/` and run the main engine:
-```powershell
 python main.py
 ```
-> **Output:** Review the cleaned data and the generated `.docx` report in `fichier_livrable/`.
+> **Résultat :** Les données nettoyées sont dans `data/processed/` et le rapport dans `docs/reports/`.
 
-### Phase 2: Database Migration
-To migrate the cleaned data into PostgreSQL:
-```powershell
-cd PostgreSQL
-python main.py
+### 🗄️ Étape 2 : Migration Data Warehouse
+Normalise le CSV processed et injecte les données dans PostgreSQL selon le schéma 3NF.
+```bash
+python -m src.database.db_main
 ```
-This script handles the sequence of:
-1.  **Schema Creation**: Building the relational structure.
-2.  **Data Normalization**: Splitting the CSV into normalized tables.
-3.  **Bulk Insertion**: Populating the database.
-4.  **Integrity Check**: Verifying uniqueness and foreign keys.
-
-### Phase 3: Verification
-Run the test suite to ensure everything is perfect:
-```powershell
-python -m unittest discover PostgreSQL/tests
-```
+> **Processus :** Création des tables -> Split relationnel -> Validation d'unicité -> Insertion massive.
 
 ---
 
-## 📊 Database Schema Overview
-The project transforms a flat CSV into a normalized relational model including:
-- **Core Entities:** `Client`, `Produit`, `Date_Temps`, `Localisation`.
-- **Relational Links:** `Region` → `Etat` → `Localisation`.
-- **Transactional Data:** `Commande` and `Ventes` (acting as a fact table).
+## 🛠️ Stack Technique & Bibliothèques
+| Domaine | Outil | Usage |
+| :--- | :--- | :--- |
+| **Langage** | Python 3.x | Logiciel socle |
+| **ETL** | Pandas | Manipulation et nettoyage de données complexes |
+| **ORM** | SQLAlchemy | Abstraction et gestion du schéma de base de données |
+| **Reporting** | Python-docx | Automatisation de documents institutionnels |
+| **Visualisation** | Matplotlib | Création de tableaux de bord graphiques |
+| **Secrets** | Python-dotenv | Gestion sécurisée des variables d'environnement |
 
 ---
 
-## 📧 Contact & Contribution
-- **Author:** Soubi Charaf
-- **Contribution:** Pull requests are welcome! For major changes, please open an issue first.
-
----
-*Created with ❤️ for the Simplon Data Project.*
+## 📧 Contact
+- **Lead Developer :** Soubi Charaf
+- **Organisation :** Simplon Data Project.

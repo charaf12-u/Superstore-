@@ -6,16 +6,16 @@ def verifier_primary_keys():
     
     # --> List des fichier 
     csv_files = {
-        'PostgreSQL/fichier_split/region.csv': ['region_name'],
-        'PostgreSQL/fichier_split/etat.csv': ['state_name'],
-        'PostgreSQL/fichier_split/localisation.csv': ['postal_code'],
-        'PostgreSQL/fichier_split/date_temps.csv': ['order_date'], 
-        'PostgreSQL/fichier_split/client.csv': ['customer_id'],
-        'PostgreSQL/fichier_split/categorie.csv': ['category_name'],
-        'PostgreSQL/fichier_split/sous_categorie.csv': ['sub_category_name'],
-        'PostgreSQL/fichier_split/produit.csv': ['product_id'],
-        'PostgreSQL/fichier_split/commande.csv': ['order_id'],
-        'PostgreSQL/fichier_split/ventes_split.csv': ['row_id']
+        'data/processed/sql_splits/region.csv': ['region_name'],
+        'data/processed/sql_splits/etat.csv': ['state_name'],
+        'data/processed/sql_splits/localisation.csv': ['postal_code'],
+        'data/processed/sql_splits/date_temps.csv': ['order_date'], 
+        'data/processed/sql_splits/client.csv': ['customer_id'],
+        'data/processed/sql_splits/categorie.csv': ['category_name'],
+        'data/processed/sql_splits/sous_categorie.csv': ['sub_category_name'],
+        'data/processed/sql_splits/produit.csv': ['product_id'],
+        'data/processed/sql_splits/commande.csv': ['order_id'],
+        'data/processed/sql_splits/ventes_split.csv': ['row_id']
     }
 
     # --> verifier la seul primary keys
